@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:audioplayers/audio_cache.dart';
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
   runApp(new MyApp());
@@ -11,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'STUDENT BUDGET',
       theme: ThemeData(
         // is not restarted.
         primarySwatch: Colors.pink,
       ),
-      home: MyHomePage(title: 'Check your pocket'),
+      home: MyHomePage(title: 'STUDENT BUDGET'),
     );
   }
 }
@@ -45,6 +45,27 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
   void setImageAndDecriptionByCurrentNumberValue(){
+
+    AudioCache player = new AudioCache();
+
+    switch(number){
+      case 0: {
+        player.play('sadpig.wav');
+      }
+      break;
+      case 300: {
+        player.play('luckypig.wav');
+      }
+      break;
+      case 800: {
+        player.play('richpig.wav');
+      }
+      break;
+      case 1300: {
+        player.play('fullpig.wav');
+      }
+      break;
+    }
     if(number <= 0){
       _url = "assets/sad.jpg";
       _description = "I feel bad :(";
@@ -66,14 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Your budged icons :)"),
+          title: Text("$number coins | STUDENT BUDGET"),
+          leading: CircleAvatarImage(_url, ""),
         ),
         body: Center(
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
              Text(
-                '$number',
+                '$number' ,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 100.0,
@@ -88,9 +110,10 @@ class _MyHomePageState extends State<MyHomePage> {
                  RaisedButton(
                     padding: const EdgeInsets.all(8.0),
                     textColor: Colors.white,
-                    color: Colors.blue,
+                    color: Colors.green,
                     onPressed: addNumbers,
-                    child: Text("Add"),
+                    child:
+                    Text("+100 PIG COINS"),
                   ),
                   RaisedButton(
                     onPressed: subtractNumbers,
@@ -98,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.red,
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Subtract",
+                      "-100 PIG COINS",
                     ),
                   ),
                 ],
